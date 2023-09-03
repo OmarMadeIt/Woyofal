@@ -1,5 +1,5 @@
-import requests
 import streamlit as st
+import requests
 from streamlit_lottie import st_lottie
 
 # Fonction pour calculer la variable nb_watts
@@ -71,7 +71,7 @@ def load_lottieurl(url):
     return r.json()
 
 #----- LOAD ASSETS--------
-lottie_coding = load_lottieurl("https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json")
+lottie_coding = load_lottieurl("https://asset-cdn.lottiefiles")
 
 with st.container():
     st.write("---")
