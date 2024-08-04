@@ -44,13 +44,13 @@ def calculate_nb_watts(montant_encours, montant_nouveau, seuil_1, seuil_2, Prix_
     print(montant_tranche_3)
 
     if montant_encours==0:
-        montant_tranche_1_HT = montant_tranche_1-redevance-(montant_tranche_1*Taxe_Com)
+        montant_tranche_1_HT = (montant_tranche_1-redevance)/(1+Taxe_Com)
     else :
-        montant_tranche_1_HT = montant_tranche_1-montant_tranche_1*Taxe_Com
+        montant_tranche_1_HT = montant_tranche_1/(1+Taxe_Com)
 
-    montant_tranche_2_HT = montant_tranche_2-montant_tranche_2*Taxe_Com
+    montant_tranche_2_HT = montant_tranche_2/(1+Taxe_Com)
     #montant_tranche_3_HT = montant_tranche_3-montant_tranche_3*Taxe_Com-montant_tranche_3*TVA
-    montant_tranche_3_HT = (montant_tranche_3-montant_tranche_3*Taxe_Com)/1.18
+    montant_tranche_3_HT = montant_tranche_3/(1+TVA+Taxe_Com)
 
     conso_tranche_1 = round(montant_tranche_1_HT/Prix_tranche_1,2)
     conso_tranche_2 = round(montant_tranche_2_HT/Prix_tranche_2,2)
@@ -68,14 +68,14 @@ if foyer_type == "DPP (Domestique Petite Puissance)":
     seuil_2 = 28436
     Prix_tranche_1 = 91.17
     Prix_tranche_2 = 136.49
-    Prix_tranche_3 = 149.06
+    Prix_tranche_3 = 136.49
     
 elif foyer_type == "DMP (Domestique Moyenne Puissance)":
     seuil_1 = 7127
     seuil_2 = 43909
     Prix_tranche_1 = 111.23
     Prix_tranche_2 = 143.54
-    Prix_tranche_3 = 150.23
+    Prix_tranche_3 = 143.54
     
 st.write("Veuillez préciser les renseignements ci-dessous :")
 #montant_encours = st.number_input("Quel est le montant total que vous avez déjà rechargé au cours de ce mois ?", value=0, step=1)
@@ -86,7 +86,7 @@ montant_encours = st.number_input("Quel est le montant total que vous avez déj�
 #montant_nouveau = st.number_input("Combien souhaitez-vous recharger ?", value=0, step=1)
 montant_nouveau = st.number_input("Combien souhaitez-vous recharger ?", value=1000)
 
-
+#new_total_tranche_2 = conso_tranche_2+conso_tranche_3
 
 
 if st.button("Calculer"):
@@ -94,8 +94,8 @@ if st.button("Calculer"):
     st.write("Vous avez droit à :", nb_watts)
     st.write("Détails")
     st.write("Puissance Tranche 1 :", conso_tranche_1)
-    st.write("Puissance Tranche 2 :", conso_tranche_2)
-    st.write("Puissance Tranche 3 :", conso_tranche_3)
+    st.write("Puissance Tranche 2 :", conso_tranche_2+conso_tranche_3)
+    #st.write("Puissance Tranche 3 :", conso_tranche_3)
 
 st.write('')
 st.write('Application Créée par Omar SECK - www.linkedin.com/in/omar-seck-73a96663', text_size='small')
